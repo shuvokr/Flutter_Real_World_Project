@@ -12,6 +12,8 @@ class FlutterRealWorldApp extends StatefulWidget {
 }
 
 class RealWorldState extends State<FlutterRealWorldApp> {
+  var _isLoading = true; // _ in the first mean, its private
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -27,7 +29,9 @@ class RealWorldState extends State<FlutterRealWorldApp> {
           ],
         ),
         body: new Center(
-          child: new CircularProgressIndicator(),
+          child: _isLoading
+              ? new CircularProgressIndicator()
+              : new Text("Finished Loading..."),
         ),
       ),
     );
