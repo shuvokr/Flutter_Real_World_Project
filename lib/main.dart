@@ -25,6 +25,9 @@ class RealWorldState extends State<FlutterRealWorldApp> {
                 icon: new Icon(Icons.refresh),
                 onPressed: () {
                   print("Reloading...");
+                  setState(() {
+                    _isLoading = _isLoading ? false : true;
+                  });
                 })
           ],
         ),
