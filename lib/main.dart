@@ -18,6 +18,13 @@ class RealWorldState extends State<FlutterRealWorldApp> {
       home: new Scaffold(
         appBar: new AppBar(
           title: new Text("Flutter Real World App"),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(Icons.refresh),
+                onPressed: () {
+                  print("Reloading...");
+                })
+          ],
         ),
         body: new Center(
           child: new CircularProgressIndicator(),
