@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(new FlutterRealWorldApp());
@@ -24,6 +25,13 @@ class RealWorldState extends State<FlutterRealWorldApp> {
     if (response.statusCode == 200) {
       print(response.body);
     }
+    print("\n");
+
+    final map = json.decode(response.body);
+    final videosJson = map["videos"];
+    videosJson.forEach((video) {
+      print(video["name"]);
+    });
   }
 
   @override
