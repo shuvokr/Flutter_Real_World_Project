@@ -1,4 +1,4 @@
-# flutter_real_world_project
+# Flutter Real World App
 
 A new Flutter project.
 
