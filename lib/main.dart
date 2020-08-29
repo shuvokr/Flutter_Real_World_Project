@@ -66,18 +66,41 @@ class RealWorldState extends State<FlutterRealWorldApp> {
                   itemCount: this.videos != null ? this.videos.length : 0,
                   itemBuilder: (context, index) {
                     final video = this.videos[index];
-
-                    return new Column(
-                      children: <Widget>[
-                        new Image.network(video["imageUrl"]),
-                        new Text(video["name"]),
-                        new Divider()
-                      ],
-                    );
+                    return new HomeTableCell(video);
                   },
                 ),
         ),
       ),
+    );
+  }
+}
+
+class HomeTableCell extends StatelessWidget {
+  final video;
+  HomeTableCell(this.video);
+
+  Widget build(BuildContext context) {
+    return new Column(
+      children: <Widget>[
+        new Container(
+          padding: new EdgeInsets.all(16.0),
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Image.network(video["imageUrl"]),
+              new Container(
+                height: 8.0,
+              ),
+              new Text(
+                video["name"],
+                style:
+                    new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        new Divider()
+      ],
     );
   }
 }
