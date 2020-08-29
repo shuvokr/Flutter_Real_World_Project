@@ -15,6 +15,7 @@ class FlutterRealWorldApp extends StatefulWidget {
 
 class RealWorldState extends State<FlutterRealWorldApp> {
   var _isLoading = true; // _ in the first mean, its private
+  var videos;
 
   _fetchData() async {
     print("Attempting to fetch data by http request...");
@@ -22,15 +23,21 @@ class RealWorldState extends State<FlutterRealWorldApp> {
     final url = "https://api.letsbuildthatapp.com/youtube/home_feed";
     final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      print(response.body);
-    }
-    print("\n");
+    // if (response.statusCode == 200) {
+    //   print(response.body);
+    // }
+    // print("\n");
 
     final map = json.decode(response.body);
     final videosJson = map["videos"];
-    videosJson.forEach((video) {
-      print(video["name"]);
+
+    // videosJson.forEach((video) {
+    //   print(video["name"]);
+    // });
+
+    setState(() {
+      this.videos = videosJson;
+      _isLoading = false;
     });
   }
 
@@ -46,7 +53,7 @@ class RealWorldState extends State<FlutterRealWorldApp> {
                 onPressed: () {
                   print("Reloading...");
                   setState(() {
-                    _isLoading = false;
+                    _isLoading = true;
                     _fetchData();
                   });
                 })
@@ -55,9 +62,28 @@ class RealWorldState extends State<FlutterRealWorldApp> {
         body: new Center(
           child: _isLoading
               ? new CircularProgressIndicator()
-              : new Text("Finished Loading..."),
+              : new ListView.builder(
+                  itemCount: this.videos != null ? this.videos.length : 0,
+                  itemBuilder: (context, index) {
+                    final video = this.videos[index];
+
+                    return new Column(
+                      children: <Widget>[
+                        new Image.network(video["imageUrl"]),
+                        new Text(video["name"]),
+                        new Divider()
+                      ],
+                    );
+                  },
+                ),
         ),
       ),
     );
   }
 }
+
+/*
+1.What is setState() ?
+Answer: https://stackoverflow.com/questions/51283077/when-use-setstate-in-flutter
+
+*/
