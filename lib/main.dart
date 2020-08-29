@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import './views/home_table_cell.dart';
+import './views/cell_detail_page.dart';
 
 void main() {
   runApp(new FlutterRealWorldApp());
@@ -15,7 +16,7 @@ class FlutterRealWorldApp extends StatefulWidget {
 }
 
 class RealWorldState extends State<FlutterRealWorldApp> {
-  var _isLoading = true; // _ in the first mean, its private
+  var _isLoading = false; // _ in the first mean, its private
   var videos;
 
   _fetchData() async {
@@ -62,6 +63,10 @@ class RealWorldState extends State<FlutterRealWorldApp> {
                         padding: new EdgeInsets.all(0.0),
                         onPressed: () {
                           print("Pressed on celll number $index");
+                          Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (context) => new DetailPage()));
                         },
                         child: new HomeTableCell(video));
                   },
