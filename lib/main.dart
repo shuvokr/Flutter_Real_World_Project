@@ -24,17 +24,8 @@ class RealWorldState extends State<FlutterRealWorldApp> {
     final url = "https://api.letsbuildthatapp.com/youtube/home_feed";
     final response = await http.get(url);
 
-    // if (response.statusCode == 200) {
-    //   print(response.body);
-    // }
-    // print("\n");
-
     final map = json.decode(response.body);
     final videosJson = map["videos"];
-
-    // videosJson.forEach((video) {
-    //   print(video["name"]);
-    // });
 
     setState(() {
       this.videos = videosJson;
@@ -67,7 +58,12 @@ class RealWorldState extends State<FlutterRealWorldApp> {
                   itemCount: this.videos != null ? this.videos.length : 0,
                   itemBuilder: (context, index) {
                     final video = this.videos[index];
-                    return new HomeTableCell(video);
+                    return new FlatButton(
+                        padding: new EdgeInsets.all(0.0),
+                        onPressed: () {
+                          print("Pressed on celll number $index");
+                        },
+                        child: new HomeTableCell(video));
                   },
                 ),
         ),
